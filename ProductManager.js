@@ -60,8 +60,8 @@ export class ProductManager {
         const products = JSON.parse(await fs.readfile(this.path, 'uft-8'))
         const indice = products.findIndex(product => product.id === id)
         if(indice != -1){
-            const productosFiltrador = products.filter(product => product.id != id)
-            await fs.writeFile(this.path, JSON.stringify(products))
+            const productosFiltrados = products.filter(product => product.id != id)
+            await fs.writeFile(this.path, JSON.stringify(productosFiltrados))
                 return 'Producto eliminado exitosamente'
         }else{
             return 'El producto no existe'
