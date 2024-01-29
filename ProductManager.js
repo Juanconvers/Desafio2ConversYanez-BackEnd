@@ -7,40 +7,41 @@ export class ProductManager {
     }
 
     async addProduct(newProduct){
-        const products = JSON.parse(await fs.readfile(this.path, 'uft-8'))
+        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
 
         if(newProduct.code && newProduct.id && newProduct.title && newProduct.description && newProduct.price && newProduct.thumbnail && newProduct.stock){
-            const indice = products.find(product => product.code === newProduct.code)
-            if(indice = -1){
+            const indice = products.findIndex(product => product.code === newProduct.code)
+            console.log(indice)
+            if(indice === -1){
                 products.push(newProduct);
                 await fs.writeFile(this.path, JSON.stringify(products))
-                return 'Producto creado exitosamente'
+                console.log('Producto creado exitosamente')
             } else {
-                return 'Producto ya existe en el archivo'
+                console.log('Producto ya existe en el archivo')
             }
         }else{
-            return 'Ingrese todos los campos'
+            console.log('Ingrese todos los campos')
         }       
     }
 
     async getProducts(){
-        const products = JSON.parse(await fs.readfile(this.path, 'uft-8'))
-        return products;
+        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
+        console.log(products)
     }
 
     async getProductsById(id){
-        const products = JSON.parse(await fs.readfile(this.path, 'uft-8'))
+        const products = JSON.parse(await fs.readfile(this.path, 'utf-8'))
         const product = products.find(product => product.id === id)
         if(product){
-            return product
+            console.log(product)
         }else{
-            return 'El producto no existe'
+            console.log('El producto no existe')
         }
         
     }
 
     async updateProduct(id, nuevoProducto){
-        const products = JSON.parse(await fs.readfile(this.path, 'uft-8'))
+        const products = JSON.parse(await fs.readfile(this.path, 'utf-8'))
         const indice = products.findIndex(product => product.id === id)
         if(indice != -1){
             products[indice].title = nuevoProducto.title
@@ -50,21 +51,21 @@ export class ProductManager {
             products[indice].code = nuevoProducto.code
             products[indice].stock = nuevoProducto.stock
             await fs.writeFile(this.path, JSON.stringify(products))
-                return 'Producto actualizaco exitosamente'
+                console.log('Producto actualizaco exitosamente')
         }else{
-            return 'El producto no existe'
+            console.log('El producto no existe')
         }
     }
 
     async deleteProduct(id){
-        const products = JSON.parse(await fs.readfile(this.path, 'uft-8'))
+        const products = JSON.parse(await fs.readfile(this.path, 'utf-8'))
         const indice = products.findIndex(product => product.id === id)
         if(indice != -1){
             const productosFiltrados = products.filter(product => product.id != id)
             await fs.writeFile(this.path, JSON.stringify(productosFiltrados))
-                return 'Producto eliminado exitosamente'
+                console.log('Producto eliminado exitosamente')
         }else{
-            return 'El producto no existe'
+            console.log('El producto no existe')
         }
     }
 }
