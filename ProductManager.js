@@ -30,7 +30,7 @@ export class ProductManager {
     }
 
     async getProductsById(id){
-        const products = JSON.parse(await fs.readfile(this.path, 'utf-8'))
+        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
         const product = products.find(product => product.id === id)
         if(product){
             console.log(product)
@@ -41,7 +41,7 @@ export class ProductManager {
     }
 
     async updateProduct(id, nuevoProducto){
-        const products = JSON.parse(await fs.readfile(this.path, 'utf-8'))
+        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
         const indice = products.findIndex(product => product.id === id)
         if(indice != -1){
             products[indice].title = nuevoProducto.title
@@ -58,7 +58,7 @@ export class ProductManager {
     }
 
     async deleteProduct(id){
-        const products = JSON.parse(await fs.readfile(this.path, 'utf-8'))
+        const products = JSON.parse(await fs.readFile(this.path, 'utf-8'))
         const indice = products.findIndex(product => product.id === id)
         if(indice != -1){
             const productosFiltrados = products.filter(product => product.id != id)
